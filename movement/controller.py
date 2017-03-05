@@ -18,6 +18,7 @@ class Controller:
             GPIO.setmode(GPIO.BCM)
 
         self.steeringGPIO = self.config["steering"]["channel"]
+        GPIO.setup(self.steeringGPIO, GPIO.OUT)
         self.steeringFrequency = self.config["steering"]["frequency"]
         self.steering = GPIO.PWM(self.steeringGPIO, self.steeringFrequency)
         self.steeringLeft = self.config["steering"]["left"]
@@ -27,6 +28,7 @@ class Controller:
         self.steeringCurrent = self.steeringCenter
 
         self.throttleGPIO = self.config["throttle"]["channel"]
+        GPIO.setup(self.throttleGPIO, GPIO.OUT)
         self.throttleFrequency = self.config["throttle"]["frequency"]
         self.throttle = GPIO.PWM(self.throttleGPIO, self.throttleFrequency)
         self.throttleReverse = self.config["throttle"]["reverse"]
