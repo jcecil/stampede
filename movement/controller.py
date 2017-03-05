@@ -125,3 +125,4 @@ class Controller:
         self.steering.stop()
         self.throttle.stop()
         GPIO.cleanup()
+        return False
