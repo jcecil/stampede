@@ -50,50 +50,52 @@ class Controller:
     #####################################
     # Steering
     #####################################
-    def steer(self, interval=0):
+    def turn(self, interval=0):
+        print("Previous Steering value:" + str(self.steeringCurrent))
         self.steeringCurrent = self.steeringCurrent + interval
         if self.steeringCurrent < self.steeringLeft:
             self.steeringCurrent = self.steeringLeft
         elif self.steeringCurrent > self.steeringRight:
             self.steeringCurrent = self.steeringRight
+        print("New Steering value:" + str(self.steeringCurrent))
 
         self.steering.ChangeDutyCycle(self.steeringCurrent)
 
-    def steerCenter(self):
+    def turnCenter(self):
         self.steeringCurrent = self.steeringCenter
-        self.steer()
+        self.turn()
 
-    def steerLeft(self, interval=None):
+    def turnLeft(self, interval=None):
         if interval is None:
             interval = -1.0 * self.steeringInterval
         if interval > 0:
             interval = -1.0 * interval
-        self.steer(interval)
+        self.turn(interval)
 
-    def steerLeftMax(self):
-        self.steeringCurrent = self.steeringLeft
-        self.steer()
+    def turnLeftMax(self):
+        self.turn(-100.0 * self.steeringInterval)
 
-    def steerRight(self, interval=None):
+    def turnRight(self, interval=None):
         if interval is None:
             interval = self.steeringInterval
         if interval < 0:
             interval = -1.0 * interval
-        self.steer(interval)
+        self.turn(interval)
 
-    def steerRightMax(self):
-        self.steeringCurrent = self.steeringRight
-        self.steer()
+    def turnRightMax(self):
+        self.turn(100.0 * self.steeringInterval)
 
     #####################################
     # Driving
     #####################################
     def drive(self, interval=0):
+        print("Previous Throttle value:" + str(self.throttleCurrent))
         self.throttleCurrent = self.throttleCurrent + interval
         if self.throttleCurrent < self.throttleReverse:
             self.throttleCurrent = self.throttleReverse
         elif self.throttleCurrent > self.throttleForward:
             self.throttleCurrent = self.throttleForward
+        print("New Throttle value:" + str(self.throttleCurrent))
 
         self.throttle.ChangeDutyCycle(self.throttleCurrent)
 
@@ -109,8 +111,7 @@ class Controller:
         self.drive(interval)
 
     def driveForwardMax(self):
-        self.throttleCurrent = self.throttleForward
-        self.drive()
+        self.drive(-100.0 * self.throttleInterval)
 
     def driveBackwards(self, interval=None):
         if interval is None:
@@ -120,8 +121,7 @@ class Controller:
         self.drive(interval)
 
     def driveBackwardsMax(self):
-        self.throttleCurrent = self.throttleReverse
-        self.drive()
+        self.drive(100.0 * self.throttleInterval)
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.steering.stop()
