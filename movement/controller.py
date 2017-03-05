@@ -34,8 +34,8 @@ class Controller:
         self.throttleReverse = self.config["throttle"]["reverse"]
         self.throttleStop = self.config["throttle"]["stop"]
         self.throttleForward = self.config["throttle"]["forward"]
-        self.throttleInterval = (self.throttleForward - self.throttleReverse) \
-            / 20.0
+        self.throttleInterval = (self.throttleReverse - self.throttleForward) \
+            / 40.0
         self.throttleCurrent = self.throttleStop
 
     def __enter__(self):
@@ -97,6 +97,10 @@ class Controller:
             self.throttleCurrent = self.throttleForward
         print("New Throttle value:" + str(self.throttleCurrent))
 
+        self.throttle.ChangeDutyCycle(self.throttleCurrent)
+
+    def driveVal(self, val):
+        self.throttleCurrent = val
         self.throttle.ChangeDutyCycle(self.throttleCurrent)
 
     def driveStop(self):
