@@ -33,6 +33,7 @@ class Controller:
         self.throttle = GPIO.PWM(self.throttleGPIO, self.throttleFrequency)
         self.throttleReverse = self.config["throttle"]["reverse"]
         self.throttleStop = self.config["throttle"]["stop"]
+        self.throttleFullStop = 0
         self.throttleForward = self.config["throttle"]["forward"]
         self.throttleInterval = (self.throttleReverse - self.throttleForward) \
             / 40.0
