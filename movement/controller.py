@@ -24,7 +24,7 @@ class Controller:
         self.steeringLeft = self.config["steering"]["left"]
         self.steeringCenter = self.config["steering"]["center"]
         self.steeringRight = self.config["steering"]["right"]
-        self.steeringInterval = (self.steeringRight - self.steeringLeft) / 10.0
+        self.steeringInterval = (self.steeringRight - self.steeringLeft) / 20.0
         self.steeringCurrent = self.steeringCenter
 
         self.throttleGPIO = self.config["throttle"]["channel"]
@@ -35,7 +35,7 @@ class Controller:
         self.throttleStop = self.config["throttle"]["stop"]
         self.throttleForward = self.config["throttle"]["forward"]
         self.throttleInterval = (self.throttleForward - self.throttleReverse) \
-            / 10.0
+            / 20.0
         self.throttleCurrent = self.throttleStop
 
     def __enter__(self):
@@ -91,9 +91,9 @@ class Controller:
     def drive(self, interval=0):
         print("Previous Throttle value:" + str(self.throttleCurrent))
         self.throttleCurrent = self.throttleCurrent + interval
-        if self.throttleCurrent < self.throttleReverse:
+        if self.throttleCurrent > self.throttleReverse:
             self.throttleCurrent = self.throttleReverse
-        elif self.throttleCurrent > self.throttleForward:
+        elif self.throttleCurrent < self.throttleForward:
             self.throttleCurrent = self.throttleForward
         print("New Throttle value:" + str(self.throttleCurrent))
 
