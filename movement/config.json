@@ -1,0 +1,18 @@
+{
+  "name": "stampede",
+  "gpioMode": "board",
+  "steering": {
+    "channel": 12,
+    "frequency": 50,
+    "left": 6,
+    "center": 8.4,
+    "right": 11
+  },
+  "throttle": {
+    "channel": 33,
+    "frequency": 50,
+    "reverse": 7.5,
+    "stop": 6.84,
+    "forward": 6.2
+  }
+}
